@@ -13,38 +13,34 @@ import com.aokunsang.service.LoginService;
 import com.aokunsang.web.BaseController;
 
 /**
- * ��婚����规��
- * @author tushen
- * @date Nov 4, 2011
  */
 @Controller
-public class LoginController extends BaseController{
+public class LoginController extends BaseController {
 
 	@Autowired
 	private LoginService loginService;
-	
-	@RequestMapping(value="/user/login",method=RequestMethod.GET)
-	public String login(){
-		
+
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	public String login() {
 		return "login";
 	}
-	
-	@RequestMapping(value="/user/login",method=RequestMethod.POST)
-	public String logon(String userName,String passWord){
+
+	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
+	public String logon(String userName, String passWord) {
 		User user = null;
 		try {
 			user = loginService.getUser(userName, passWord);
 		} catch (RuntimeException e) {
 		}
-		if(user!=null){
+		if (user != null) {
 			return "MyHome";
-		}else{
+		} else {
 			return "login";
 		}
 	}
-	
-	@RequestMapping(value="/user/register",method=RequestMethod.POST)
-	public String register(User user){
+
+	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	public String register(User user) {
 		loginService.addUser(user);
 		return "login";
 	}
